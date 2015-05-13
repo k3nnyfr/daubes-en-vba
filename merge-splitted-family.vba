@@ -16,7 +16,10 @@ Sub merge_splitted_family()
     
     For Each b In a.Rows
                 
+        ' Récupération de la valeur précédente '
         comp_a = previous
+        
+        ' Concaténation du NOM et Prénom pour comparaison '
         comp_b = Range(Cells(b.Row, 4).Address) + Range(Cells(b.Row, 5).Address)
         
         If StrComp(comp_a, comp_b, vbBinaryCompare) = 0 And comp_b <> "" And comp_b <> "0" And comp_a <> "" And comp_a <> "0" Then
@@ -27,6 +30,7 @@ Sub merge_splitted_family()
             Debug.Print comp_b + " - chaine a : " + comp_a + " - chaine b : " + comp_b
             
             ' ECRIRE DATA THIS.RESP+THIS.CONJ -> RESP2+CONJ2 '
+            ' Ecriture sur la même ligne des données Père et Mère '
             Debug.Print comp_b + " - ligne 2 - Décalage des données en RESP2+CONJ2"
             
             Range(Cells(b.Row, 38).Address) = Range(Cells(b.Row, 1).Address) 'Lien parenté2'
@@ -51,8 +55,8 @@ Sub merge_splitted_family()
             
             Range(Cells(b.Row, 55).Address) = Range(Cells(b.Row, 36).Address) 'CP-Ville'
             
-            ' ECRIRE DATA CACHE -> RESP+CONJ '
-            Debug.Print comp_b + " - ligne 2 - Ecriture des data backed en RESP1+CONJ1"
+            ' Ecriture des données de la ligne supérieur sauvegardées en variables '
+            Debug.Print comp_b + " - ligne 2 - Ecriture des données de la ligne suppérieur en RESP1+CONJ1"
             
             Range(Cells(b.Row, 1).Address) = p_lienparente
             Range(Cells(b.Row, 14).Address) = p_nom_resp
@@ -75,7 +79,8 @@ Sub merge_splitted_family()
             Range(Cells(b.Row, 31).Address) = p_adresse123_famille
             Range(Cells(b.Row, 32).Address) = p_teldom
         
-            Range(Cells(b.Row, 33).Address) = p_ville
+            Range(Cells(b.Row, 36).Address) = p_ville
+            Range(Cells(b.Row, 37).Address) = p_ville
             
             Debug.Print comp_b + " - Suppression de la premiere ligne de donnée"
             
@@ -108,7 +113,7 @@ Sub merge_splitted_family()
         p_adresse123_famille = Range(Cells(b.Row, 31).Address)
         p_teldom = Range(Cells(b.Row, 32).Address)
         
-        p_ville = Range(Cells(b.Row, 33).Address)
+        p_ville = Range(Cells(b.Row, 36).Address)
         
         ' STOCKER EN CACHE POUR PROCHAINE ITERATION
         previous = comp_b
